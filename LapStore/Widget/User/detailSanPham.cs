@@ -22,13 +22,13 @@ namespace LapStore.Widget.User
         string MSP;
         public detailSanPham(SanPham sp)
         {
-            long tietKiem= 5999000;
+            long tietKiem= 5000;
             InitializeComponent();
             txtMaSP.Text = "Mã SP: "+ sp.MaSp;
             MSP = sp.MaSp;
             txt_TenSP.Text = sp.TenSp;
             txt_soLuongKho.Text = "*Số lượng còn lại trong kho: "+sp.SoLuong;
-            txt_giaCu.Text = (sp.GiaBan + tietKiem).ToString("N0") + "đ";
+            txt_giaCu.Text = (sp.GiaChuaBan + tietKiem).ToString("N0") + "đ";
             txtGia.Text = sp.GiaBan.ToString("N0") + "đ";
             GIA = sp.GiaBan;
             txt_tietKiem.Text = "Tiết kiệm: "+tietKiem.ToString("N0") + "đ";

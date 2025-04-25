@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -18,10 +19,68 @@ namespace LapStore.Widget
     {
         string MADANHMUC = "";
         string imagePath;
+        private string maSpGoc = "";
 
         public sanPhamUserControl()
         {
             InitializeComponent();
+        }
+        public static void LoadDanhMucToComboBox(ComboBox comboBox)
+        {
+            using (SqlConnection conn = Database.GetConnection())
+            {
+                string query = "SELECT id, tenDanhMuc FROM DANHMUC";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+
+                        comboBox.DataSource = dt;
+                        comboBox.DisplayMember = "tenDanhMuc"; // Hiển thị tên danh mục
+                        comboBox.ValueMember = "id";           // Value là mã danh mục
+                    }
+                }
+            }
+        }
+        public static void LoadNhaCungCapToComboBox(ComboBox comboBox)
+        {
+            using (SqlConnection conn = Database.GetConnection())
+            {
+                string query = "SELECT maNhaCungCap , tenNhaCungCap  FROM NHACUNGCAP";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+
+                        comboBox.DataSource = dt;
+                        comboBox.DisplayMember = "tenNhaCungCap"; // Hiển thị tên danh mục
+                        comboBox.ValueMember = "maNhaCungCap";           // Value là mã danh mục
+                    }
+                }
+            }
+        }
+        public static void LoadMaGiamGiaToComboBox(ComboBox comboBox)
+        {
+            using (SqlConnection conn = Database.GetConnection())
+            {
+                string query = "SELECT maGiamGia  , tenGiamGia   FROM GIAMGIA";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+
+                        comboBox.DataSource = dt;
+                        comboBox.DisplayMember = "tenGiamGia"; // Hiển thị tên danh mục
+                        comboBox.ValueMember = "maGiamGia";           // Value là mã danh mục
+                    }
+                }
+            }
         }
 
         private void ClearForm()
@@ -44,6 +103,9 @@ namespace LapStore.Widget
             LoadingData(MADANHMUC);
             // dgvSP.DefaultCellStyle.ForeColor = Color.Black;
             // txtMaDm.Enabled = false;
+            LoadDanhMucToComboBox(cboDanhMuc);
+            LoadMaGiamGiaToComboBox(cboGiamGia);
+            LoadNhaCungCapToComboBox(cboNcc);
         }
 
         public void LoadingData(string maDm)
@@ -90,39 +152,39 @@ namespace LapStore.Widget
                 dgvSP.Rows[rowIndex].Cells["HinhAnh"].Tag = sp.HinhAnh;
             }
 
-            // Lấy ra danh sách danh mục
-            List<DanhMuc> danhMucs = DanhMucController.getAllDanhMucs();
-            Dictionary<string, string> danhMucDict = new Dictionary<string, string>();
-            foreach (DanhMuc dm in danhMucs)
-            {
-                danhMucDict.Add(dm.id, dm.tenDanhMuc);
-            }
+            //// Lấy ra danh sách danh mục
+            //List<DanhMuc> danhMucs = DanhMucController.getAllDanhMucs();
+            //Dictionary<string, string> danhMucDict = new Dictionary<string, string>();
+            //foreach (DanhMuc dm in danhMucs)
+            //{
+            //    danhMucDict.Add(dm.id, dm.tenDanhMuc);
+            //}
 
-            cboDanhMuc.DataSource = new BindingSource(danhMucDict, null);
-            cboDanhMuc.DisplayMember = "Value";
-            cboDanhMuc.ValueMember = "Key";
-            // lấy ra danh sách nhà cung cấp
-            List<NhaCungCap> nhaCungCaps = NhaCungCapController.getAllNhaCungCaps();
-            Dictionary<string, string> nhaCungCapDict = new Dictionary<string, string>();
-            foreach (NhaCungCap ncc in nhaCungCaps)
-            {
-                nhaCungCapDict.Add(ncc.id, ncc.tenNhaCungCap);
-            }
+            //cboDanhMuc.DataSource = new BindingSource(danhMucDict, null);
+            //cboDanhMuc.DisplayMember = "Value";
+            //cboDanhMuc.ValueMember = "Key";
+            //// lấy ra danh sách nhà cung cấp
+            //List<NhaCungCap> nhaCungCaps = NhaCungCapController.getAllNhaCungCaps();
+            //Dictionary<string, string> nhaCungCapDict = new Dictionary<string, string>();
+            //foreach (NhaCungCap ncc in nhaCungCaps)
+            //{
+            //    nhaCungCapDict.Add(ncc.id, ncc.tenNhaCungCap);
+            //}
 
-            cboNcc.DataSource = new BindingSource(nhaCungCapDict, null);
-            cboNcc.DisplayMember = "Value";
-            cboNcc.ValueMember = "Key";
-            // lấy ra danh sách giảm giá
-            List<GiamGia> giamGias = GiamGiaController.getAllGiamGias();
-            Dictionary<string, string> giamGiaDict = new Dictionary<string, string>();
-            foreach (GiamGia gg in giamGias)
-            {
-                giamGiaDict.Add(gg.id, gg.tenGiamGia);
-            }
+            //cboNcc.DataSource = new BindingSource(nhaCungCapDict, null);
+            //cboNcc.DisplayMember = "Value";
+            //cboNcc.ValueMember = "Key";
+            //// lấy ra danh sách giảm giá
+            //List<GiamGia> giamGias = GiamGiaController.getAllGiamGias();
+            //Dictionary<string, string> giamGiaDict = new Dictionary<string, string>();
+            //foreach (GiamGia gg in giamGias)
+            //{
+            //    giamGiaDict.Add(gg.id, gg.tenGiamGia);
+            //}
 
-            cboGiamGia.DataSource = new BindingSource(giamGiaDict, null);
-            cboGiamGia.DisplayMember = "Value";
-            cboGiamGia.ValueMember = "Key";
+            //cboGiamGia.DataSource = new BindingSource(giamGiaDict, null);
+            //cboGiamGia.DisplayMember = "Value";
+            //cboGiamGia.ValueMember = "Key";
         }
 
 
@@ -162,6 +224,11 @@ namespace LapStore.Widget
             if (!long.TryParse(txtGiaChuaBan.Text, out long giaChuaBan))
             {
                 MessageBox.Show("Giá chưa bán không hợp lệ. Vui lòng nhập số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (giaNhap > giaChuaBan)
+            {
+                MessageBox.Show("Giá nhập không được lớn hơn giá chưa bán!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (!int.TryParse(txtSoLuong.Text, out int soLuong))
@@ -205,7 +272,7 @@ namespace LapStore.Widget
 
                 // Lấy thông tin từ các ô
                 txtMaSp.Text = row.Cells["maSp"].Value?.ToString().Trim();
-                cboDanhMuc.Text = row.Cells["maDm"].Value?.ToString().Trim();
+                //cboDanhMuc.Text = row.Cells["maDm"].Value?.ToString().Trim();
                 txtTenSP.Text = row.Cells["tenSp"].Value?.ToString().Trim();
                 txtMoTa.Text = row.Cells["moTa"].Value?.ToString().Trim();
                 txtGiaNhap.Text = row.Cells["giaNhap"].Value?.ToString().Trim();
@@ -213,9 +280,9 @@ namespace LapStore.Widget
                 txtGiaChuaBan.Text = row.Cells["giaChuaBan"].Value?.ToString().Trim();
                 txtSoLuong.Text = row.Cells["soLuong"].Value?.ToString().Trim();
                 dateCreateAt.Value = DateTime.Parse(row.Cells["createAt"].Value?.ToString());
-                cboDanhMuc.SelectedItem = row.Cells["maDm"].Value?.ToString().Trim();
-                cboNcc.SelectedItem = row.Cells["nhaCungCap"].Value?.ToString().Trim();
-                cboGiamGia.SelectedItem = row.Cells["giamGia"].Value?.ToString().Trim();
+                cboDanhMuc.SelectedValue = row.Cells["maDm"].Value?.ToString().Trim();
+                cboNcc.SelectedValue = row.Cells["nhaCungCap"].Value?.ToString().Trim();
+                cboGiamGia.SelectedValue = row.Cells["giamGia"].Value?.ToString().Trim();
 
                 // Hiển thị hình ảnh lên PictureBox
                 try
@@ -250,7 +317,7 @@ namespace LapStore.Widget
         {
             // Lấy mã sản phẩm từ TextBox
             string maSp = txtMaSp.Text;
-
+            //string maSp =txtTenSP.Text;
             // Kiểm tra mã sản phẩm có rỗng không
             if (string.IsNullOrWhiteSpace(maSp))
             {
@@ -286,76 +353,83 @@ namespace LapStore.Widget
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            // Sử dụng hàm kiểm tra từ lớp Validator
-            if (string.IsNullOrWhiteSpace(txtMaSp.Text) ||
-    string.IsNullOrWhiteSpace(txtTenSP.Text) ||
-    string.IsNullOrWhiteSpace(txtGiaNhap.Text) ||
-    string.IsNullOrWhiteSpace(txtGiaBan.Text) ||
-    string.IsNullOrWhiteSpace(txtGiaChuaBan.Text) ||
-    string.IsNullOrWhiteSpace(txtSoLuong.Text) ||
-    cboDanhMuc.SelectedValue == null ||
-    cboGiamGia.SelectedValue == null ||
-    cboNcc.SelectedValue == null)
+            if (string.IsNullOrWhiteSpace(txtTenSP.Text) ||
+        string.IsNullOrWhiteSpace(txtGiaNhap.Text) ||
+        string.IsNullOrWhiteSpace(txtGiaBan.Text) ||
+        string.IsNullOrWhiteSpace(txtGiaChuaBan.Text) ||
+        string.IsNullOrWhiteSpace(txtSoLuong.Text) ||
+        cboDanhMuc.SelectedValue == null ||
+        cboGiamGia.SelectedValue == null ||
+        cboNcc.SelectedValue == null)
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin sản phẩm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Kiểm tra xem mã sản phẩm có bị chỉnh sửa hay không
-           
-
             // Kiểm tra định dạng số
-            if (!long.TryParse(txtGiaNhap.Text, out long giaNhap))
+            if (!long.TryParse(txtGiaNhap.Text, out long giaNhap) ||
+                !long.TryParse(txtGiaBan.Text, out long giaBan) ||
+                !long.TryParse(txtGiaChuaBan.Text, out long giaChuaBan) ||
+                !int.TryParse(txtSoLuong.Text, out int soLuong))
             {
-                MessageBox.Show("Giá nhập không hợp lệ. Vui lòng nhập số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Giá hoặc số lượng không hợp lệ. Vui lòng nhập đúng định dạng số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (!long.TryParse(txtGiaBan.Text, out long giaBan))
+            if (giaNhap > giaChuaBan)
             {
-                MessageBox.Show("Giá bán không hợp lệ. Vui lòng nhập số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!long.TryParse(txtGiaChuaBan.Text, out long giaChuaBan))
-            {
-                MessageBox.Show("Giá chưa bán không hợp lệ. Vui lòng nhập số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!int.TryParse(txtSoLuong.Text, out int soLuong))
-            {
-                MessageBox.Show("Số lượng không hợp lệ. Vui lòng nhập số nguyên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Giá nhập không được lớn hơn giá chưa bán!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Kiểm tra xem có ảnh hay không
-            imagePath = imageSp.Tag?.ToString() ?? "";
-
-            var sanPham = new SanPham
+            // Lấy mã sản phẩm đang chọn từ DataGridView
+            if (dgvSP.CurrentRow == null)
             {
-                MaSp = txtMaSp.Text,
-                MaDm = cboDanhMuc.SelectedValue.ToString(),
-                TenSp = txtTenSP.Text,
-                HinhAnh = imagePath,
-                MoTa = txtMoTa.Text,
-                GiaNhap = long.Parse(txtGiaNhap.Text),
-                GiaBan = long.Parse(txtGiaBan.Text),
-                GiaChuaBan = long.Parse(txtGiaChuaBan.Text),
-                SoLuong = int.Parse(txtSoLuong.Text),
-                GiamGia = cboGiamGia.SelectedValue.ToString(),
-                NhaCungCap = cboNcc.SelectedValue.ToString(),
-                CreatedAt = DateTime.Now,
-            };
-            if (!txtMaSp.ReadOnly && !txtMaSp.Text.Equals(sanPham.MaSp))
+                MessageBox.Show("Vui lòng chọn sản phẩm để cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string maSpGoc = dgvSP.CurrentRow.Cells["MaSp"].Value?.ToString()?.Trim();
+            string maSpHienTai = txtMaSp.Text?.Trim();
+
+            // Kiểm tra nếu mã đang hiện khác mã gốc thì không cho cập nhật
+            if (!string.IsNullOrEmpty(maSpHienTai) &&
+                !string.IsNullOrEmpty(maSpGoc) &&
+                !maSpHienTai.Equals(maSpGoc, StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("Không được sửa mã sản phẩm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Gọi hàm cập nhật sản phẩm
-            SanPhamController.UpdateSanPham(sanPham);
-            LoadingData(MADANHMUC);
-            MessageBox.Show("Cập nhật sản phẩm thành công!");
-            ClearForm();
+            // Lấy đường dẫn ảnh
+            string imagePath = imageSp.Tag?.ToString() ?? "";
 
+            // Tạo đối tượng sản phẩm để cập nhật
+            var sanPham = new SanPham
+            {
+                MaSp = maSpGoc,
+                MaDm = cboDanhMuc.SelectedValue.ToString(),
+                TenSp = txtTenSP.Text,
+                HinhAnh = imagePath,
+                MoTa = txtMoTa.Text,
+                GiaNhap = giaNhap,
+                GiaBan = giaBan,
+                GiaChuaBan = giaChuaBan,
+                SoLuong = soLuong,
+                GiamGia = cboGiamGia.SelectedValue.ToString(),
+                NhaCungCap = cboNcc.SelectedValue.ToString(),
+                CreatedAt = DateTime.Now
+            };
+
+            // Gọi hàm cập nhật
+            SanPhamController.UpdateSanPham(sanPham);
+
+            // Refresh danh sách
+            LoadingData(MADANHMUC); // hoặc MADANHMUC nếu bạn có biến đó
+
+            MessageBox.Show("Cập nhật sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearForm();
+        
+        
         }
 
         private void txtTimKiem_TextChanged(object sender, EventArgs e)

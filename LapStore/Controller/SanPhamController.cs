@@ -192,6 +192,16 @@ namespace LapStore
                     cmd.ExecuteNonQuery();
                 }
             }
+            //using (SqlConnection conn = Database.GetConnection())
+            //{
+            //    string query = "DELETE FROM SANPHAM WHERE tenSp = @maSp";
+
+            //    using (SqlCommand cmd = new SqlCommand(query, conn))
+            //    {
+            //        cmd.Parameters.AddWithValue("@maSp", maSp);
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
         }
 
         // Tìm kiếm sản phẩm
@@ -368,7 +378,6 @@ namespace LapStore
                         {
                             break;
                         }
-
                         newNumber++;
                     }
 
@@ -539,7 +548,7 @@ namespace LapStore
                         else
                         {
                             Console.WriteLine($" Đã thêm sản phẩm: {tenSP} ({maSP})");
-                            MessageBox.Show("a");
+                            MessageBox.Show("Đã thêm sản phẩm thành công");
                         }
                     }
                 }

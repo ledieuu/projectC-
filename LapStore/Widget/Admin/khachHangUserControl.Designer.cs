@@ -36,14 +36,6 @@
             this.btn_newID = new Guna.UI2.WinForms.Guna2CircleButton();
             this.txt_sdt = new Guna.UI2.WinForms.Guna2TextBox();
             this.dgvUser = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.hinhAnh = new System.Windows.Forms.DataGridViewImageColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ten = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sdt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.diachi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.role = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtPass = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDiaChi = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtEmail = new Guna.UI2.WinForms.Guna2TextBox();
@@ -70,6 +62,13 @@
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.cbb_role = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.hinhAnh = new System.Windows.Forms.DataGridViewImageColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ten = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sdt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.diachi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageSp)).BeginInit();
             this.guna2GradientPanel1.SuspendLayout();
@@ -145,8 +144,7 @@
             this.email,
             this.pass,
             this.sdt,
-            this.diachi,
-            this.role});
+            this.diachi});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -186,57 +184,6 @@
             this.dgvUser.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.dgvUser.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
             this.dgvUser.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellClick);
-            // 
-            // hinhAnh
-            // 
-            this.hinhAnh.HeaderText = "Hình ảnh";
-            this.hinhAnh.MinimumWidth = 30;
-            this.hinhAnh.Name = "hinhAnh";
-            this.hinhAnh.ReadOnly = true;
-            this.hinhAnh.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.hinhAnh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // ten
-            // 
-            this.ten.HeaderText = "Tên người dùng";
-            this.ten.Name = "ten";
-            this.ten.ReadOnly = true;
-            // 
-            // email
-            // 
-            this.email.HeaderText = "Email";
-            this.email.Name = "email";
-            this.email.ReadOnly = true;
-            // 
-            // pass
-            // 
-            this.pass.HeaderText = "Mật khẩu";
-            this.pass.Name = "pass";
-            this.pass.ReadOnly = true;
-            // 
-            // sdt
-            // 
-            this.sdt.HeaderText = "Số điện thoại";
-            this.sdt.Name = "sdt";
-            this.sdt.ReadOnly = true;
-            // 
-            // diachi
-            // 
-            this.diachi.HeaderText = "Địa chỉ";
-            this.diachi.Name = "diachi";
-            this.diachi.ReadOnly = true;
-            // 
-            // role
-            // 
-            this.role.HeaderText = "Role";
-            this.role.Name = "role";
-            this.role.ReadOnly = true;
             // 
             // txtPass
             // 
@@ -656,6 +603,51 @@
             this.label6.TabIndex = 98;
             this.label6.Text = "Vai trò";
             // 
+            // hinhAnh
+            // 
+            this.hinhAnh.HeaderText = "Hình ảnh";
+            this.hinhAnh.MinimumWidth = 30;
+            this.hinhAnh.Name = "hinhAnh";
+            this.hinhAnh.ReadOnly = true;
+            this.hinhAnh.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.hinhAnh.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // ten
+            // 
+            this.ten.HeaderText = "Tên người dùng";
+            this.ten.Name = "ten";
+            this.ten.ReadOnly = true;
+            // 
+            // email
+            // 
+            this.email.HeaderText = "Email";
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            // 
+            // pass
+            // 
+            this.pass.HeaderText = "Mật khẩu";
+            this.pass.Name = "pass";
+            this.pass.ReadOnly = true;
+            // 
+            // sdt
+            // 
+            this.sdt.HeaderText = "Số điện thoại";
+            this.sdt.Name = "sdt";
+            this.sdt.ReadOnly = true;
+            // 
+            // diachi
+            // 
+            this.diachi.HeaderText = "Địa chỉ";
+            this.diachi.Name = "diachi";
+            this.diachi.ReadOnly = true;
+            // 
             // khachHangUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -738,6 +730,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pass;
         private System.Windows.Forms.DataGridViewTextBoxColumn sdt;
         private System.Windows.Forms.DataGridViewTextBoxColumn diachi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn role;
     }
 }

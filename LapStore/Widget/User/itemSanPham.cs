@@ -34,14 +34,11 @@ namespace LapStore.Widget
            
 
         }
-        public long GiaNhap
+        public long GiaChuaBan
         {
-            set
-            {
-
-                txtGiaNhap.Text = value.ToString("N0") + "đ";
-            }
+            set => txtGiaNhap.Text = value.ToString("N0") + "đ";
         }
+        
         public long SoLuong
         {
             set
@@ -91,7 +88,7 @@ namespace LapStore.Widget
 
 
             this.sanPham = sp;
-            GiaNhap = sp.GiaBan + 5999000;
+            GiaChuaBan = sp.GiaChuaBan + 500;
             MaSp = sp.MaSp;
             TenSp = sp.TenSp;
             GiaBan = sp.GiaBan;

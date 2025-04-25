@@ -21,24 +21,24 @@ namespace LapStore.Controller
 
             string query = @"
             SELECT
-                tk.maDonHang,                 -- Mã đơn hàng từ bảng THONGKE
-                u.hoTen,                      -- Họ tên người dùng từ bảng USERS
-                SUM(sp.giaNhap * tk.soLuong) AS TongGiaNhap, -- Tổng giá nhập (giá nhập * số lượng)
-                SUM(tk.doanhThu) AS TongDoanhThu,          -- Tổng doanh thu từ bảng THONGKE
-                SUM(tk.loiNhuan) AS TongLoiNhuan           -- Tổng lợi nhuận từ bảng THONGKE
+                tk.maDonHang,                
+                u.hoTen,                     
+                SUM(sp.giaNhap * tk.soLuong) AS TongGiaNhap,
+                SUM(tk.doanhThu) AS TongDoanhThu,          
+                SUM(tk.loiNhuan) AS TongLoiNhuan           
             FROM
                 THONGKE tk
             INNER JOIN
-                DONHANG dh ON tk.maDonHang = dh.id -- Kết nối THONGKE với DONHANG qua id đơn hàng
+                DONHANG dh ON tk.maDonHang = dh.id 
             INNER JOIN
-                USERS u ON dh.maUser = u.id         -- Kết nối DONHANG với USERS qua id người dùng
+                USERS u ON dh.maUser = u.id         
             INNER JOIN
-                SANPHAM sp ON tk.maSp = sp.maSp     -- Kết nối THONGKE với SANPHAM qua mã sản phẩm
+                SANPHAM sp ON tk.maSp = sp.maSp     
             GROUP BY
-                tk.maDonHang,                 -- Nhóm kết quả theo mã đơn hàng
-                u.hoTen                       -- và họ tên người dùng
+                tk.maDonHang,                 
+                u.hoTen                      
             ORDER BY
-                tk.maDonHang;                 -- Sắp xếp kết quả theo mã đơn hàng
+                tk.maDonHang;                 
         ";
             using (SqlCommand cmd = new SqlCommand(query, Database.GetConnection()))
             {

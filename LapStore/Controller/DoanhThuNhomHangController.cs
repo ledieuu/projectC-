@@ -63,7 +63,7 @@ namespace LapStore.Controller
             JOIN
                 SANPHAM s ON d.id = s.maDm
             WHERE
-                d.id = @DanhMucId -- Thêm điều kiện lọc theo tham số @DanhMucId
+                d.id = @DanhMucId 
             GROUP BY
                 d.id, d.tenDanhMuc
             ORDER BY
@@ -111,44 +111,86 @@ namespace LapStore.Controller
 
         public class ExcelExporter
         {
-            public void ExportSelectedRowsToExcel(DataGridView dgv)
-            {
-                if (dgv.SelectedRows.Count == 0)
+            //public void ExportSelectedRowsToExcel(DataGridView dgv)
+            //{
+            //    if (dgv.SelectedRows.Count == 0)
+            //    {
+            //        MessageBox.Show("Vui lòng chọn ít nhất một dòng để xuất!", "Thông báo");
+            //        return;
+            //    }
+
+            //    var excel = new Microsoft.Office.Interop.Excel.Application { Visible = true };
+            //    var sheet = (Worksheet)excel.Workbooks.Add().Sheets[1];
+            //    sheet.Name = "Dữ liệu danh mục";
+
+            //    // Tiêu đề (Không có STT)
+            //    string[] headers = { "Mã danh mục", "Tên danh mục", "Số lượng" };
+            //    for (int i = 1; i < headers.Length; i++)
+            //    {
+            //        var cell = sheet.Cells[2, i + 1];
+            //        cell.Value = headers[i];
+            //        cell.Font.Bold = true;
+            //        cell.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
+            //        cell.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            //        cell.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+            //        cell.Borders.LineStyle = XlLineStyle.xlContinuous;
+            //    }
+
+            //    // Dữ liệu (Không có cột STT)
+            //    int excelRow = 2;
+            //    foreach (DataGridViewRow row in dgv.SelectedRows)
+            //    {
+            //        sheet.Cells[excelRow, 2] = row.Cells["Mã danh mục"].Value;
+            //        sheet.Cells[excelRow, 3] = row.Cells["Tên danh mục"].Value;
+            //        sheet.Cells[excelRow, 4] = row.Cells["Số lượng"].Value;
+            //        excelRow++;
+            //    }
+
+            //    sheet.Columns.AutoFit();
+            //}
+          
+                public void ExportSelectedRowsToExcel(DataGridView dgv)
                 {
-                    MessageBox.Show("Vui lòng chọn ít nhất một dòng để xuất!", "Thông báo");
-                    return;
+                    if (dgv.SelectedRows.Count == 0)
+                    {
+                        MessageBox.Show("Vui lòng chọn ít nhất một dòng để xuất!", "Thông báo");
+                        return;
+                    }
+
+                    var excel = new Microsoft.Office.Interop.Excel.Application { Visible = true };
+                    var sheet = (Worksheet)excel.Workbooks.Add().Sheets[1];
+                    sheet.Name = "Dữ liệu danh mục";
+
+                    // Chỉ xuất "Tên danh mục" và "Số lượng"
+                    string[] headers = { "TT","Mã Danh Mục","Tên danh mục", "Số lượng" };
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        var cell = sheet.Cells[2, i + 1];
+                        cell.Value = headers[i];
+                        cell.Font.Bold = true;
+                        cell.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
+                        cell.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                        cell.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+                        cell.Borders.LineStyle = XlLineStyle.xlContinuous;
+                    }
+
+                    // Dữ liệu
+                    int excelRow = 3;
+                    foreach (DataGridViewRow row in dgv.SelectedRows)
+                    {
+                    sheet.Cells[excelRow, 1] = row.Cells["TT"].Value;
+                    sheet.Cells[excelRow, 2] = row.Cells["madm"].Value;
+
+                    sheet.Cells[excelRow, 3] = row.Cells["tendm"].Value;
+                        sheet.Cells[excelRow, 4] = row.Cells["soluong"].Value;
+                        excelRow++;
+                    }
+
+                    sheet.Columns.AutoFit();
                 }
-
-                var excel = new Microsoft.Office.Interop.Excel.Application { Visible = true };
-                var sheet = (Worksheet)excel.Workbooks.Add().Sheets[1];
-                sheet.Name = "Dữ liệu danh mục";
-
-                // Tiêu đề (Không có STT)
-                string[] headers = { "Mã danh mục", "Tên danh mục", "Số lượng" };
-                for (int i = 1; i < headers.Length; i++)
-                {
-                    var cell = sheet.Cells[2, i + 1];
-                    cell.Value = headers[i];
-                    cell.Font.Bold = true;
-                    cell.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
-                    cell.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                    cell.VerticalAlignment = Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
-                    cell.Borders.LineStyle = XlLineStyle.xlContinuous;
-                }
-
-                // Dữ liệu (Không có cột STT)
-                int excelRow = 2;
-                foreach (DataGridViewRow row in dgv.SelectedRows)
-                {
-                    sheet.Cells[excelRow, 2] = row.Cells["Mã danh mục"].Value;
-                    sheet.Cells[excelRow, 3] = row.Cells["Tên danh mục"].Value;
-                    sheet.Cells[excelRow, 4] = row.Cells["Số lượng"].Value;
-                    excelRow++;
-                }
-
-                sheet.Columns.AutoFit();
             }
-        }
+
+        
 
     }
 }

@@ -88,8 +88,8 @@ namespace LapStore.Widget
 
         private void btn_xuat_Click(object sender, EventArgs e)
         {
-            var exporter = new SanPhamController.ExcelExporter();
-            exporter.ExportSelectedRowsToExcelWithImages(dgv);
+            var exporter = new DoanhThuNhomHangController.ExcelExporter();
+            exporter.ExportSelectedRowsToExcel(dgv);
         }
     }
 }
